@@ -4,671 +4,247 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dominick — Property Search Portal | Zachary Springborn</title>
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6T9JYR4MQ"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
+  window.dataLayer=window.dataLayer||[];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-T6T9JYR4MQ');
+  gtag('js',new Date());
+  gtag('config','G-T6T9JYR4MQ');
 </script>
 <style>
-/* ============================================================
-   TOKENS
-   ============================================================ */
 :root {
-  --navy:    #051444;
-  --orange:  #FF3800;
-  --bg:      #0d0f14;
-  --bg2:     #13161e;
-  --bg3:     #1a1e2a;
-  --border:  #1f2535;
-  --text:    #e8ecf4;
-  --muted:   #7a8aaa;
-  --lblue:   #8fcbfe;
-  --green:   #22c55e;
-  --amber:   #f59e0b;
-  --nav-h:   120px;
+  --navy:   #051444;
+  --orange: #FF3800;
+  --bg:     #0d0f14;
+  --bg2:    #13161e;
+  --bg3:    #1a1e2a;
+  --border: #1f2535;
+  --text:   #e8ecf4;
+  --muted:  #7a8aaa;
+  --lblue:  #8fcbfe;
+  --green:  #22c55e;
+  --amber:  #f59e0b;
+  --purple: #a855f7;
+  --nav-h:  120px;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;}
+a{color:var(--lblue);text-decoration:none;}
+a:hover{color:#fff;text-decoration:underline;}
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 15px;
-  line-height: 1.6;
-}
-a { color: var(--lblue); text-decoration: none; }
-a:hover { color: #fff; text-decoration: underline; }
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:var(--navy);border-bottom:2px solid var(--orange);display:flex;align-items:center;padding:0 24px;gap:20px;}
+.nav-logo{width:88px;height:88px;object-fit:contain;object-position:center;flex-shrink:0;border-radius:6px;}
+.nav-headshot{width:88px;height:88px;object-fit:cover;object-position:center 15%;flex-shrink:0;border-radius:4px;border:2px solid var(--orange);}
+.nav-info{flex:1;min-width:0;}
+.nav-name{font-size:18px;font-weight:700;color:#fff;white-space:nowrap;letter-spacing:.02em;}
+.nav-title{font-size:11.5px;color:var(--lblue);white-space:nowrap;line-height:1.5;}
+.nav-lic{font-size:11px;color:var(--lblue);opacity:.85;white-space:nowrap;}
+.nav-links{display:flex;gap:4px;flex-wrap:nowrap;flex-shrink:0;}
+.nav-links a{color:var(--lblue);font-size:11.5px;font-weight:500;padding:5px 9px;border-radius:4px;white-space:nowrap;transition:background .15s,color .15s;text-decoration:none;border:1px solid transparent;}
+.nav-links a:hover{background:rgba(143,203,254,.12);color:#fff;border-color:rgba(143,203,254,.25);}
 
-/* ============================================================
-   STICKY NAV
-   ============================================================ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: var(--nav-h);
-  background: var(--navy);
-  border-bottom: 2px solid var(--orange);
-  display: flex; align-items: center;
-  padding: 0 24px;
-  gap: 20px;
-}
-.nav-logo {
-  width: 88px; height: 88px;
-  object-fit: contain;
-  object-position: center;
-  flex-shrink: 0;
-  border-radius: 6px;
-}
-.nav-headshot {
-  width: 88px; height: 88px;
-  object-fit: cover;
-  object-position: center 15%;
-  flex-shrink: 0;
-  border-radius: 4px;
-  border: 2px solid var(--orange);
-}
-.nav-info {
-  flex: 1;
-  min-width: 0;
-}
-.nav-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-  letter-spacing: 0.02em;
-}
-.nav-title {
-  font-size: 11.5px;
-  color: var(--lblue);
-  white-space: nowrap;
-  line-height: 1.5;
-}
-.nav-lic {
-  font-size: 11px;
-  color: var(--lblue);
-  opacity: 0.85;
-  white-space: nowrap;
-}
-.nav-links {
-  display: flex; gap: 4px; flex-wrap: nowrap;
-  flex-shrink: 0;
-}
-.nav-links a {
-  color: var(--lblue);
-  font-size: 11.5px;
-  font-weight: 500;
-  padding: 5px 9px;
-  border-radius: 4px;
-  white-space: nowrap;
-  transition: background 0.15s, color 0.15s;
-  text-decoration: none;
-  border: 1px solid transparent;
-}
-.nav-links a:hover {
-  background: rgba(143,203,254,0.12);
-  color: #fff;
-  border-color: rgba(143,203,254,0.25);
-  text-decoration: none;
-}
+.page-body{padding-top:calc(var(--nav-h) + 24px);}
 
-/* ============================================================
-   PAGE BODY OFFSET
-   ============================================================ */
-.page-body { padding-top: calc(var(--nav-h) + 24px); }
+/* SECTIONS */
+.section{max-width:1200px;margin:0 auto 48px;padding:0 20px;}
+.section-header{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:24px;}
+.section-header h2{font-size:22px;font-weight:700;color:#fff;letter-spacing:.01em;}
+.section-icon{color:var(--orange);flex-shrink:0;}
 
-/* ============================================================
-   SECTIONS
-   ============================================================ */
-.section {
-  max-width: 1200px;
-  margin: 0 auto 48px auto;
-  padding: 0 20px;
-}
-.section-header {
-  display: flex; align-items: center; gap: 12px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 12px;
-  margin-bottom: 24px;
-}
-.section-header h2 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.01em;
-}
-.section-icon {
-  color: var(--orange);
-  flex-shrink: 0;
-}
+/* HERO */
+.hero-results{background:linear-gradient(135deg,#0a1128 0%,#0d1433 60%,#111827 100%);border:1px solid var(--orange);border-radius:10px;padding:32px 36px;margin-bottom:32px;position:relative;overflow:hidden;}
+.hero-results::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;line-height:1.2;}
+.hero-sub{font-size:14px;color:var(--muted);margin-bottom:24px;max-width:600px;line-height:1.5;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:6px;text-decoration:none;transition:background .15s,transform .1s;border:none;cursor:pointer;}
+.btn-primary:hover{background:#d42e00;color:#fff;text-decoration:none;transform:translateY(-1px);}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--lblue);font-weight:600;font-size:14px;padding:11px 22px;border-radius:6px;border:1px solid rgba(143,203,254,.35);text-decoration:none;transition:background .15s,border-color .15s;}
+.btn-secondary:hover{background:rgba(143,203,254,.1);border-color:var(--lblue);color:#fff;text-decoration:none;}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px;border-top:1px solid rgba(255,255,255,.07);padding-top:18px;}
+.hero-meta-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);}
+.hero-meta-item svg{color:var(--orange);flex-shrink:0;}
+.hero-count{display:inline-flex;align-items:center;justify-content:center;background:var(--orange);color:#fff;font-size:28px;font-weight:800;width:56px;height:56px;border-radius:8px;margin-bottom:12px;letter-spacing:-1px;}
 
-/* ============================================================
-   HERO RESULTS BLOCK
-   ============================================================ */
-.hero-results {
-  background: linear-gradient(135deg, #0a1128 0%, #0d1433 60%, #111827 100%);
-  border: 1px solid var(--orange);
-  border-radius: 10px;
-  padding: 32px 36px;
-  margin-bottom: 32px;
-  position: relative;
-  overflow: hidden;
-}
-.hero-results::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--orange);
-}
-.hero-tag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 8px;
-}
-.hero-title {
-  font-size: 28px;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 6px;
-  line-height: 1.2;
-}
-.hero-sub {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 24px;
-  max-width: 600px;
-  line-height: 1.5;
-}
-.hero-btns {
-  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--orange);
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px 24px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background 0.15s, transform 0.1s;
-  border: none; cursor: pointer;
-}
-.btn-primary:hover { background: #d42e00; color: #fff; text-decoration: none; transform: translateY(-1px); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent;
-  color: var(--lblue);
-  font-weight: 600;
-  font-size: 14px;
-  padding: 11px 22px;
-  border-radius: 6px;
-  border: 1px solid rgba(143,203,254,0.35);
-  text-decoration: none;
-  transition: background 0.15s, border-color 0.15s;
-}
-.btn-secondary:hover { background: rgba(143,203,254,0.1); border-color: var(--lblue); color: #fff; text-decoration: none; }
-.hero-meta {
-  display: flex; gap: 24px; flex-wrap: wrap; margin-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  padding-top: 18px;
-}
-.hero-meta-item {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; color: var(--muted);
-}
-.hero-meta-item svg { color: var(--orange); flex-shrink: 0; }
-.hero-count {
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--orange);
-  color: #fff;
-  font-size: 28px;
-  font-weight: 800;
-  width: 56px; height: 56px;
+/* DELTA ALERT BANNER */
+.delta-bar{
+  background: rgba(255,56,0,0.07);
+  border: 1px solid rgba(255,56,0,0.35);
   border-radius: 8px;
-  margin-bottom: 12px;
-  letter-spacing: -1px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
+.delta-item{display:flex;flex-direction:column;gap:3px;min-width:140px;}
+.delta-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.delta-val{font-size:13.5px;font-weight:700;color:var(--text);}
+.delta-val.red{color:#f87171;}
+.delta-val.green{color:var(--green);}
+.delta-val.purple{color:#c084fc;}
+.delta-val.amber{color:var(--amber);}
 
-/* ============================================================
-   LISTINGS TABLE
-   ============================================================ */
-.table-wrap {
-  overflow-x: auto;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-thead th {
-  background: #0a0d18;
-  color: var(--lblue);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 10px 10px;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-  text-align: center;
-}
-thead th:nth-child(2) { text-align: left; }
-.listing-row {
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  transition: background 0.12s;
-}
-.listing-row td { padding: 9px 10px; vertical-align: middle; }
-.listing-row:hover { background: rgba(255,56,0,0.07); }
+/* TABLE */
+.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin-bottom:16px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{background:#0a0d18;color:var(--lblue);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 10px;border-bottom:1px solid var(--border);white-space:nowrap;text-align:center;}
+thead th:nth-child(2){text-align:left;}
+.listing-row{cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04);transition:background .12s;border-left:3px solid transparent;}
+.listing-row td{padding:9px 10px;vertical-align:middle;}
+.listing-row:hover{background:rgba(255,56,0,.07);}
 
-/* Row age colouring */
-.row-new   { border-left: 3px solid var(--orange); }
-.row-warm  { border-left: 3px solid var(--amber); }
-.row-old   { border-left: 3px solid #2a3050; }
-.row-new td { background: rgba(255,56,0,0.04); }
-.row-warm td { background: rgba(245,158,11,0.04); }
+/* Age colouring — default */
+.listing-row:not(.row-reduced):not(.row-bom) td{ background: transparent; }
 
-/* DOM cell colouring */
-.dom-new { color: var(--orange); font-weight: 700; }
-.dom-warm { color: var(--amber); font-weight: 600; }
-.dom-old { color: var(--muted); }
+/* DOM */
+.dom-new{color:var(--orange);font-weight:700;}
+.dom-warm{color:var(--amber);font-weight:600;}
+.dom-old{color:var(--muted);}
 
-.tc { text-align: center; }
-.addr-cell { text-align: left; min-width: 180px; }
-.addr-cell strong { color: #fff; font-size: 13px; }
-.city-sub { font-size: 11px; color: var(--muted); }
-.price-cell { color: var(--orange); font-weight: 700; font-size: 14px; white-space: nowrap; }
+/* Reduced row */
+.row-reduced{border-left:3px solid var(--purple) !important;}
+.row-reduced td{background:rgba(168,85,247,.05);}
+.row-reduced:hover td{background:rgba(168,85,247,.1);}
+
+/* BOM row */
+.row-bom{border-left:3px solid var(--amber) !important;}
+.row-bom td{background:rgba(245,158,11,.06);}
+.row-bom:hover td{background:rgba(245,158,11,.12);}
+
+.tc{text-align:center;}
+.addr-cell{text-align:left;min-width:180px;}
+.addr-cell strong{color:#fff;font-size:13px;}
+.city-sub{font-size:11px;color:var(--muted);}
+.price-cell{color:var(--orange);font-weight:700;font-size:14px;white-space:nowrap;}
+.old-price{font-size:10.5px;color:var(--muted);text-decoration:line-through;margin-left:4px;font-weight:400;}
 
 /* Badges */
-.badge {
-  display: inline-block;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 2px 5px;
-  border-radius: 3px;
-  margin-left: 4px;
-  vertical-align: middle;
-}
-.badge-new { background: var(--orange); color: #fff; }
-.badge-uc  { background: var(--amber); color: #000; }
-.badge-sold { background: var(--green); color: #000; }
-.badge-red { background: #7c3aed; color: #fff; }
+.badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 5px;border-radius:3px;margin-left:4px;vertical-align:middle;}
+.badge-new   {background:var(--orange);color:#fff;}
+.badge-red   {background:#7c3aed;color:#fff;}
+.badge-bom   {background:var(--amber);color:#000;}
+.badge-fomo  {background:#ef4444;color:#fff;}
 
-.src-badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 2px 6px;
-  border-radius: 3px;
-  white-space: nowrap;
-}
-.src-ires  { background: rgba(143,203,254,0.15); color: var(--lblue); }
-.src-reco  { background: rgba(34,197,94,0.15); color: #4ade80; }
+.src-badge{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 6px;border-radius:3px;white-space:nowrap;}
+.src-ires{background:rgba(143,203,254,.15);color:var(--lblue);}
+.src-reco{background:rgba(34,197,94,.15);color:#4ade80;}
 
-/* ============================================================
-   QUICK-NOTE FEEDBACK WIDGET
-   ============================================================ */
-.qn-widget {
-  background: var(--bg2);
-  border-left: 3px solid var(--orange);
-  border-radius: 0 6px 6px 0;
-  padding: 14px 18px;
-  margin: 16px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.qn-label { font-size: 12px; font-weight: 700; color: var(--orange); letter-spacing: 0.05em; text-transform: uppercase; }
-.qn-row { display: flex; gap: 8px; align-items: center; }
-.qn-input {
-  flex: 1;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  color: var(--text);
-  padding: 8px 12px;
-  font-size: 13px;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.qn-input:focus { border-color: var(--orange); }
-.qn-send {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s;
-  white-space: nowrap;
-}
-.qn-send:hover { background: #d42e00; }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip {
-  border: 1px solid var(--orange);
-  color: var(--orange);
-  font-size: 11px;
-  padding: 3px 9px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  white-space: nowrap;
-}
-.chip:hover { background: var(--orange); color: #fff; }
-.qn-confirm { font-size: 12px; color: var(--green); display: none; font-weight: 600; }
+/* QUICK NOTE */
+.qn-widget{background:var(--bg2);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0 0;display:flex;flex-direction:column;gap:10px;}
+.qn-label{font-size:12px;font-weight:700;color:var(--orange);letter-spacing:.05em;text-transform:uppercase;}
+.qn-row{display:flex;gap:8px;align-items:center;}
+.qn-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:8px 12px;font-size:13px;outline:none;transition:border-color .15s;}
+.qn-input:focus{border-color:var(--orange);}
+.qn-send{background:var(--orange);color:#fff;border:none;border-radius:5px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.qn-send:hover{background:#d42e00;}
+.chips{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{border:1px solid var(--orange);color:var(--orange);font-size:11px;padding:3px 9px;border-radius:20px;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;}
+.chip:hover{background:var(--orange);color:#fff;}
+.qn-confirm{font-size:12px;color:var(--green);display:none;font-weight:600;}
 
-/* ============================================================
-   WHAT CHANGED LOG
-   ============================================================ */
-.log-entry {
-  border-left: 3px solid var(--orange);
-  background: var(--bg2);
-  border-radius: 0 6px 6px 0;
-  padding: 14px 18px;
-  margin-bottom: 14px;
-}
-.log-date {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 6px;
-}
-.log-text { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
-.log-text strong { color: var(--text); }
+/* WHAT CHANGED LOG */
+.log-entry{border-left:3px solid var(--orange);background:var(--bg2);border-radius:0 6px 6px 0;padding:14px 18px;margin-bottom:14px;}
+.log-entry.log-fomo{border-left-color:#ef4444;background:rgba(239,68,68,.05);}
+.log-entry.log-bom{border-left-color:var(--amber);background:rgba(245,158,11,.05);}
+.log-entry.log-reduced{border-left-color:var(--purple);background:rgba(168,85,247,.05);}
+.log-date{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.log-entry.log-fomo  .log-date{color:#ef4444;}
+.log-entry.log-bom   .log-date{color:var(--amber);}
+.log-entry.log-reduced .log-date{color:#c084fc;}
+.log-text{font-size:13.5px;color:var(--muted);line-height:1.6;}
+.log-text strong{color:var(--text);}
 
-/* ============================================================
-   CRITERIA GRID
-   ============================================================ */
-.criteria-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
-}
-.crit-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 16px;
-}
-.crit-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-.crit-value {
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-}
+/* CRITERIA GRID */
+.criteria-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.crit-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.crit-label{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.crit-value{font-size:15px;font-weight:600;color:#fff;}
 
-/* ============================================================
-   MARKET SNAPSHOT
-   ============================================================ */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 14px;
-  margin-bottom: 28px;
-}
-.stat-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 18px 16px;
-  transition: border-color 0.15s;
-}
-.stat-card:hover { border-color: rgba(255,56,0,0.4); }
-.stat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-.stat-val { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-.stat-chg {font-size: 12px; font-weight: 600; }
-.chg-pos { color: var(--green); }
-.chg-neg { color: #f87171; }
-.chg-neu { color: var(--muted); }
+/* MARKET SNAPSHOT */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:28px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px 16px;transition:border-color .15s;}
+.stat-card:hover{border-color:rgba(255,56,0,.4);}
+.stat-label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.stat-val{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px;}
+.stat-chg{font-size:12px;font-weight:600;}
+.chg-pos{color:var(--green);}
+.chg-neg{color:#f87171;}
+.chg-neu{color:var(--muted);}
+.market-prose{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px 28px;font-size:14px;line-height:1.75;color:var(--muted);}
+.market-prose p{margin-bottom:14px;}
+.market-prose p:last-child{margin-bottom:0;}
+.market-prose strong{color:var(--text);}
+.mkt-table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin-bottom:24px;}
+.mkt-table{width:100%;border-collapse:collapse;font-size:13px;}
+.mkt-table th{background:#0a0d18;color:var(--lblue);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);}
+.mkt-table th:first-child{text-align:left;}
+.mkt-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);text-align:center;color:var(--text);}
+.mkt-table td:first-child{text-align:left;font-weight:600;color:#fff;}
+.mkt-table tr:last-child td{border-bottom:none;}
+.mkt-table .seg-header td{background:rgba(255,56,0,.08);color:var(--orange);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;text-align:left;}
 
-.market-prose {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 24px 28px;
-  margin-top: 0;
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--muted);
-}
-.market-prose p { margin-bottom: 14px; }
-.market-prose p:last-child { margin-bottom: 0; }
-.market-prose strong { color: var(--text); }
+/* AREA GUIDE */
+.area-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.area-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;transition:border-color .15s;}
+.area-card:hover{border-color:rgba(255,56,0,.3);}
+.area-name{font-size:14px;font-weight:800;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.area-name svg{color:var(--orange);}
+.area-desc{font-size:13px;color:var(--muted);line-height:1.6;}
 
-/* ============================================================
-   MARKET TABLE
-   ============================================================ */
-.mkt-table-wrap {
-  overflow-x: auto;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  margin-bottom: 24px;
-}
-.mkt-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-.mkt-table th {
-  background: #0a0d18;
-  color: var(--lblue);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 10px 14px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-}
-.mkt-table th:first-child { text-align: left; }
-.mkt-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  text-align: center;
-  color: var(--text);
-}
-.mkt-table td:first-child { text-align: left; font-weight: 600; color: #fff; }
-.mkt-table tr:last-child td { border-bottom: none; }
-.mkt-table .seg-header { background: rgba(255,56,0,0.08); }
-.mkt-table .seg-header td { color: var(--orange); font-weight: 800; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 14px; }
-.mkt-table .seg-header td:first-child { text-align: left; }
+/* FULL FEEDBACK */
+.feedback-widget{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;}
+.feedback-widget .chips{margin-bottom:14px;}
+.fb-textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:12px 16px;font-size:14px;font-family:inherit;resize:vertical;min-height:110px;outline:none;transition:border-color .15s;margin-bottom:12px;}
+.fb-textarea:focus{border-color:var(--orange);}
+.fb-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.fb-autosave{font-size:11px;color:var(--muted);}
+.fb-send{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;}
+.fb-send:hover{background:#d42e00;}
+.fb-confirm{font-size:13px;color:var(--green);display:none;font-weight:600;margin-top:8px;}
 
-/* ============================================================
-   AREA GUIDE
-   ============================================================ */
-.area-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-.area-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 20px;
-  transition: border-color 0.15s;
-}
-.area-card:hover { border-color: rgba(255,56,0,0.3); }
-.area-name {
-  font-size: 14px;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 8px;
-  display: flex; align-items: center; gap: 8px;
-}
-.area-name svg { color: var(--orange); }
-.area-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+/* AGENT CARD */
+.agent-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:32px;display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;}
+.agent-photo-wrap{flex-shrink:0;}
+.agent-photo{width:180px;height:220px;object-fit:cover;object-position:center 15%;border-radius:8px;border:2px solid var(--orange);display:block;}
+.agent-logo{width:88px;height:88px;object-fit:contain;object-position:center;border-radius:9px;margin-bottom:12px;display:block;}
+.agent-info{flex:1;min-width:220px;}
+.agent-name{font-size:26px;font-weight:800;color:#fff;margin-bottom:2px;}
+.agent-title{font-size:14px;color:var(--lblue);margin-bottom:2px;font-weight:600;}
+.agent-office{font-size:13px;color:var(--muted);margin-bottom:16px;}
+.agent-ctarow{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+.agent-bio{font-size:13.5px;color:var(--muted);line-height:1.7;max-width:520px;}
+.agent-bio strong{color:var(--text);}
 
-/* ============================================================
-   FULL FEEDBACK WIDGET
-   ============================================================ */
-.feedback-widget {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 28px;
-}
-.feedback-widget .chips { margin-bottom: 14px; }
-.fb-textarea {
-  width: 100%;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  padding: 12px 16px;
-  font-size: 14px;
-  font-family: inherit;
-  resize: vertical;
-  min-height: 110px;
-  outline: none;
-  transition: border-color 0.15s;
-  margin-bottom: 12px;
-}
-.fb-textarea:focus { border-color: var(--orange); }
-.fb-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-.fb-autosave { font-size: 11px; color: var(--muted); }
-.fb-send {
-  background: var(--orange);
-  color: #fff; border: none;
-  border-radius: 6px;
-  padding: 10px 22px;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.fb-send:hover { background: #d42e00; }
-.fb-confirm { font-size: 13px; color: var(--green); display: none; font-weight: 600; margin-top: 8px; }
+/* DISCLAIMER */
+.disclaimer-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:28px 32px;font-size:11.5px;color:var(--muted);line-height:1.75;max-width:1200px;margin:0 auto 48px;}
+.disclaimer-block p{margin-bottom:12px;}
+.disclaimer-block p:last-child{margin-bottom:0;}
+.disclaimer-block strong{color:#9aa5c0;}
 
-/* ============================================================
-   AGENT CONTACT CARD
-   ============================================================ */
-.agent-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 32px;
-  display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;
-}
-.agent-photo-wrap {
-  flex-shrink: 0;
-}
-.agent-photo {
-  width: 180px;
-  height: 220px;
-  object-fit: cover;
-  object-position: center 15%;
-  border-radius: 8px;
-  border: 2px solid var(--orange);
-  display: block;
-}
-.agent-logo {
-  width: 88px; height: 88px;
-  object-fit: contain;
-  object-position: center;
-  align-self: flex-start;
-  border-radius: 9px;
-  margin-bottom: 12px;
-  display: block;
-}
-.agent-info { flex: 1; min-width: 220px; }
-.agent-name { font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 2px; }
-.agent-title { font-size: 14px; color: var(--lblue); margin-bottom: 2px; font-weight: 600; }
-.agent-office { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-.agent-ctarow {
-  display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;
-}
-.agent-bio {
-  font-size: 13.5px; color: var(--muted); line-height: 1.7; max-width: 520px;
-}
-.agent-bio strong { color: var(--text); }
+footer{background:#07090f;border-top:1px solid var(--border);padding:20px;text-align:center;font-size:11px;color:var(--muted);}
+.source-line{font-size:11px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:5px;}
+.divider{border:none;border-top:1px solid var(--border);margin:0 0 32px;}
 
-/* ============================================================
-   DISCLAIMER
-   ============================================================ */
-.disclaimer-block {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 28px 32px;
-  font-size: 11.5px;
-  color: var(--muted);
-  line-height: 1.75;
-  max-width: 1200px;
-  margin: 0 auto 48px auto;
-  padding-left: 32px; padding-right: 32px;
-}
-.disclaimer-block p { margin-bottom: 12px; }
-.disclaimer-block p:last-child { margin-bottom: 0; }
-.disclaimer-block strong { color: #9aa5c0; }
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-footer {
-  background: #07090f;
-  border-top: 1px solid var(--border);
-  padding: 20px 20px;
-  text-align: center;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-/* ============================================================
-   UTILITY
-   ============================================================ */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0 0 32px 0;
-}
-.source-line {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 8px;
-  display: flex; align-items: center; gap: 5px;
-}
-
-@media (max-width: 720px) {
-  .nav { height: auto; min-height: var(--nav-h); flex-wrap: wrap; padding: 12px; gap: 10px; }
-  .nav-links { flex-wrap: wrap; }
-  .page-body { padding-top: 140px; }
-  .hero-title { font-size: 20px; }
-  .agent-card { flex-direction: column; }
-  .hero-results { padding: 22px 18px; }
+@media(max-width:720px){
+  .nav{height:auto;min-height:var(--nav-h);flex-wrap:wrap;padding:12px;gap:10px;}
+  .nav-links{flex-wrap:wrap;}
+  .page-body{padding-top:140px;}
+  .hero-title{font-size:20px;}
+  .agent-card{flex-direction:column;}
+  .hero-results{padding:22px 18px;}
+  .delta-bar{flex-direction:column;gap:14px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ========================================================
-     STICKY NAV
-     ======================================================== -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
+<!-- NAV -->
+<nav class="nav" role="navigation">
   <img src="data:image/jpeg;base64,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" alt="JPAR Modern Real Estate" class="nav-logo">
   <img src="data:image/jpeg;base64,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" alt="Zachary Springborn" class="nav-headshot">
   <div class="nav-info">
@@ -679,26 +255,21 @@ footer {
   <div class="nav-links">
     <a href="#results">Live Results</a>
     <a href="#changed">What Changed</a>
-    <a href="#criteria">Your Criteria</a>
-    <a href="#market">Market Snapshot</a>
+    <a href="#criteria">Criteria</a>
+    <a href="#market">Market</a>
     <a href="#area">Area Guide</a>
-    <a href="#feedback">Leave Feedback</a>
+    <a href="#feedback">Feedback</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<!-- ========================================================
-     PAGE BODY
-     ======================================================== -->
 <div class="page-body">
 
-<!-- ========================================================
-     HERO / LIVE RESULTS
-     ======================================================== -->
+<!-- LIVE RESULTS -->
 <div class="section" id="results">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <h2>Live MLS Results &mdash; August 28, 2026</h2>
+    <h2>Live MLS Results &mdash; September 9, 2026</h2>
   </div>
 
   <div class="hero-results">
@@ -707,10 +278,10 @@ footer {
       Dominick&rsquo;s Custom Property Search
     </div>
     <div class="hero-count">27</div>
-    <div class="hero-title">Your Complete Search Results Are Ready</div>
-    <div class="hero-sub">These are all active listings matching your criteria — pulled directly from IRES MLS and REcolorado, the same sources that feed Zillow, Realtor.com, and every agent in Northern Colorado. This is live, unfiltered market data set up specifically for you.</div>
+    <div class="hero-title">Your Search Results &mdash; Things Moved This Week</div>
+    <div class="hero-sub">One property went under contract in 14 days. One came back to market. Three sellers cut their prices. The details are below &mdash; a few of these deserve a closer look before they move again.</div>
     <div class="hero-btns">
-      <a href="https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368" target="_blank" rel="noopener" class="btn-primary">
+      <a href="https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7" target="_blank" rel="noopener" class="btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         Open Full MLS Report
       </a>
@@ -726,7 +297,7 @@ footer {
       </div>
       <div class="hero-meta-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Source: IRES MLS &amp; REcolorado (iresis.com)
+        Source: IRES MLS &amp; REcolorado
       </div>
       <div class="hero-meta-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -739,7 +310,27 @@ footer {
     </div>
   </div>
 
-  <!-- Listings Table -->
+  <!-- Delta summary bar -->
+  <div class="delta-bar">
+    <div class="delta-item">
+      <div class="delta-label">Under Contract (gone)</div>
+      <div class="delta-val red">9916 County Road 48&frac12;, Milliken &mdash; $765K &mdash; 14 days</div>
+    </div>
+    <div class="delta-item">
+      <div class="delta-label">Back on Market</div>
+      <div class="delta-val amber">2647 Cutter Dr, Severance &mdash; $995K &mdash; BOM</div>
+    </div>
+    <div class="delta-item">
+      <div class="delta-label">Price Reductions (3)</div>
+      <div class="delta-val purple">4829 E CR 54 &darr;$11K &nbsp;&middot;&nbsp; 7330 Silvermoon &darr;$19.5K &nbsp;&middot;&nbsp; 722 Sophie St &darr;$49K</div>
+    </div>
+    <div class="delta-item">
+      <div class="delta-label">New to Report</div>
+      <div class="delta-val green">2647 Cutter Dr, Severance (93 DOM)</div>
+    </div>
+  </div>
+
+  <!-- Table -->
   <div class="table-wrap">
     <table>
       <thead>
@@ -757,8 +348,20 @@ footer {
         </tr>
       </thead>
       <tbody>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row row-reduced" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">1</td>
+      <td class="addr-cell"><strong>4829 E County Road 54</strong><span class="badge badge-red">REDUCED</span> <span class="old-price">$750,000</span><br><span class="city-sub">Fort Collins</span></td>
+      <td class="tc price-cell">$739,000</td>
+      <td class="tc">2.3 ac</td>
+      <td class="tc">1,788 sf</td>
+      <td class="tc">3bd / 3ba</td>
+      <td class="tc">1 Story/Ranch</td>
+      <td class="tc">1917</td>
+      <td class="tc dom-old">77d </td>
+      <td class="tc src-badge src-ires">IRES</td>
+    </tr>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">2</td>
       <td class="addr-cell"><strong>3518 Manzanita Dr</strong><br><span class="city-sub">Loveland</span></td>
       <td class="tc price-cell">$740,000</td>
       <td class="tc">0.97 ac</td>
@@ -766,11 +369,11 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">1977</td>
-      <td class="tc dom-new">18d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-new">30d <span class="badge badge-new">NEW</span></td>
       <td class="tc src-badge src-reco">RECO</td>
     </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">2</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">3</td>
       <td class="addr-cell"><strong>1301 7th St</strong><br><span class="city-sub">Pierce</span></td>
       <td class="tc price-cell">$750,000</td>
       <td class="tc">1.56 ac</td>
@@ -778,35 +381,11 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">2015</td>
-      <td class="tc dom-new">10d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-new">22d <span class="badge badge-new">NEW</span></td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">3</td>
-      <td class="addr-cell"><strong>4829 E County Road 54</strong><br><span class="city-sub">Fort Collins</span></td>
-      <td class="tc price-cell">$750,000</td>
-      <td class="tc">2.3 ac</td>
-      <td class="tc">1,788 sf</td>
-      <td class="tc">3bd / 3ba</td>
-      <td class="tc">1 Story/Ranch</td>
-      <td class="tc">1917</td>
-      <td class="tc dom-old">65d </td>
-      <td class="tc src-badge src-ires">IRES</td>
-    </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">4</td>
-      <td class="addr-cell"><strong>9916 County Road 48 1/2</strong><br><span class="city-sub">Milliken</span></td>
-      <td class="tc price-cell">$765,000</td>
-      <td class="tc">0.75 ac</td>
-      <td class="tc">2,859 sf</td>
-      <td class="tc">3bd / 2ba</td>
-      <td class="tc">2 Story</td>
-      <td class="tc">1907</td>
-      <td class="tc dom-new">10d <span class="badge badge-new">NEW</span></td>
-      <td class="tc src-badge src-ires">IRES</td>
-    </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">5</td>
       <td class="addr-cell"><strong>8355 Louden Cir</strong><br><span class="city-sub">Fort Collins</span></td>
       <td class="tc price-cell">$789,900</td>
       <td class="tc">0.69 ac</td>
@@ -814,11 +393,11 @@ footer {
       <td class="tc">4bd / 4ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">2001</td>
-      <td class="tc dom-old">99d </td>
+      <td class="tc dom-old">111d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">6</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">5</td>
       <td class="addr-cell"><strong>4801 Norwood Ave</strong><br><span class="city-sub">Loveland</span></td>
       <td class="tc price-cell">$795,000</td>
       <td class="tc">4.64 ac</td>
@@ -826,11 +405,11 @@ footer {
       <td class="tc">4bd / 3ba</td>
       <td class="tc">Tri-Level</td>
       <td class="tc">1971</td>
-      <td class="tc dom-old">101d </td>
+      <td class="tc dom-old">113d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">7</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">6</td>
       <td class="addr-cell"><strong>840 Bunyan Ave</strong><br><span class="city-sub">Berthoud</span></td>
       <td class="tc price-cell">$799,000</td>
       <td class="tc">0.80 ac</td>
@@ -838,11 +417,11 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">2002</td>
-      <td class="tc dom-old">109d </td>
+      <td class="tc dom-old">121d </td>
       <td class="tc src-badge src-reco">RECO</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">8</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">7</td>
       <td class="addr-cell"><strong>1302 Park Ridge Dr</strong><br><span class="city-sub">Severance</span></td>
       <td class="tc price-cell">$799,900</td>
       <td class="tc">0.69 ac</td>
@@ -850,11 +429,11 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">2016</td>
-      <td class="tc dom-old">92d </td>
+      <td class="tc dom-old">104d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">9</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">8</td>
       <td class="addr-cell"><strong>504 Carpenter Rd</strong><br><span class="city-sub">Fort Collins</span></td>
       <td class="tc price-cell">$839,800</td>
       <td class="tc">1.56 ac</td>
@@ -862,11 +441,11 @@ footer {
       <td class="tc">3bd / 2ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">1984</td>
-      <td class="tc dom-old">106d </td>
+      <td class="tc dom-old">118d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">10</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">9</td>
       <td class="addr-cell"><strong>801 Hernia Hill Trl</strong><br><span class="city-sub">Bellvue</span></td>
       <td class="tc price-cell">$840,000</td>
       <td class="tc">11.04 ac</td>
@@ -874,11 +453,11 @@ footer {
       <td class="tc">3bd / 4ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">2013</td>
-      <td class="tc dom-old">120d </td>
+      <td class="tc dom-old">132d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">11</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">10</td>
       <td class="addr-cell"><strong>2701 Martingale Dr</strong><br><span class="city-sub">Berthoud</span></td>
       <td class="tc price-cell">$850,000</td>
       <td class="tc">1.20 ac</td>
@@ -886,11 +465,11 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">Tri-Level</td>
       <td class="tc">1971</td>
-      <td class="tc dom-new">30d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-warm">42d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">12</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">11</td>
       <td class="addr-cell"><strong>21769 County Road 15 Rd</strong><br><span class="city-sub">Johnstown</span></td>
       <td class="tc price-cell">$869,900</td>
       <td class="tc">1.00 ac</td>
@@ -898,11 +477,11 @@ footer {
       <td class="tc">5bd / 2ba</td>
       <td class="tc">1 1/2 Story</td>
       <td class="tc">1950</td>
-      <td class="tc dom-old">78d </td>
+      <td class="tc dom-old">90d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-warm" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">13</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">12</td>
       <td class="addr-cell"><strong>2038 Burbank St</strong><br><span class="city-sub">Berthoud</span></td>
       <td class="tc price-cell">$899,000</td>
       <td class="tc">0.62 ac</td>
@@ -910,11 +489,11 @@ footer {
       <td class="tc">3bd / 4ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">1996</td>
-      <td class="tc dom-warm">40d </td>
+      <td class="tc dom-warm">52d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">14</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">13</td>
       <td class="addr-cell"><strong>2809 Lake Hollow Rd</strong><br><span class="city-sub">Berthoud</span></td>
       <td class="tc price-cell">$900,000</td>
       <td class="tc">1.29 ac</td>
@@ -922,11 +501,11 @@ footer {
       <td class="tc">4bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">1977</td>
-      <td class="tc dom-new">22d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-warm">34d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">15</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">14</td>
       <td class="addr-cell"><strong>8609 Ranch Rd</strong><br><span class="city-sub">Loveland</span></td>
       <td class="tc price-cell">$910,000</td>
       <td class="tc">1.30 ac</td>
@@ -934,23 +513,23 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">1999</td>
-      <td class="tc dom-old">106d </td>
+      <td class="tc dom-old">118d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">16</td>
-      <td class="addr-cell"><strong>7330 Silvermoon Ln</strong><br><span class="city-sub">Fort Collins</span></td>
-      <td class="tc price-cell">$949,500</td>
+<tr class="listing-row row-reduced" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">15</td>
+      <td class="addr-cell"><strong>7330 Silvermoon Ln</strong><span class="badge badge-red">REDUCED</span> <span class="old-price">$949,500</span><br><span class="city-sub">Fort Collins</span></td>
+      <td class="tc price-cell">$930,000</td>
       <td class="tc">0.58 ac</td>
       <td class="tc">3,906 sf</td>
       <td class="tc">5bd / 4ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">1994</td>
-      <td class="tc dom-old">121d </td>
+      <td class="tc dom-old">133d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">17</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">16</td>
       <td class="addr-cell"><strong>9201 Four Wheel Dr</strong><br><span class="city-sub">Loveland</span></td>
       <td class="tc price-cell">$949,500</td>
       <td class="tc">1.89 ac</td>
@@ -958,11 +537,11 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">1986</td>
-      <td class="tc dom-old">88d </td>
+      <td class="tc dom-old">100d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
-      <td class="tc">18</td>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">17</td>
       <td class="addr-cell"><strong>622 Boulder Cir</strong><br><span class="city-sub">Fort Collins</span></td>
       <td class="tc price-cell">$949,900</td>
       <td class="tc">1.92 ac</td>
@@ -970,10 +549,22 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">1982</td>
-      <td class="tc dom-new">29d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-warm">41d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row row-reduced" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
+      <td class="tc">18</td>
+      <td class="addr-cell"><strong>722 Sophie St</strong><span class="badge badge-red">REDUCED</span> <span class="old-price">$999,000</span><br><span class="city-sub">Berthoud</span></td>
+      <td class="tc price-cell">$950,000</td>
+      <td class="tc">1.02 ac</td>
+      <td class="tc">4,733 sf</td>
+      <td class="tc">4bd / 4ba</td>
+      <td class="tc">2 Story</td>
+      <td class="tc">1978</td>
+      <td class="tc dom-warm">43d </td>
+      <td class="tc src-badge src-ires">IRES</td>
+    </tr>
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">19</td>
       <td class="addr-cell"><strong>3363 Crest Dr</strong><br><span class="city-sub">Loveland</span></td>
       <td class="tc price-cell">$950,000</td>
@@ -982,10 +573,10 @@ footer {
       <td class="tc">3bd / 4ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">1998</td>
-      <td class="tc dom-old">142d </td>
+      <td class="tc dom-old">154d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">20</td>
       <td class="addr-cell"><strong>5219 Kanawha Ln</strong><br><span class="city-sub">Evans</span></td>
       <td class="tc price-cell">$950,000</td>
@@ -994,10 +585,10 @@ footer {
       <td class="tc">4bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">2005</td>
-      <td class="tc dom-old">128d </td>
+      <td class="tc dom-old">140d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">21</td>
       <td class="addr-cell"><strong>1104 San Miguel Dr</strong><br><span class="city-sub">Severance</span></td>
       <td class="tc price-cell">$960,000</td>
@@ -1006,10 +597,10 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">2001</td>
-      <td class="tc dom-new">30d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-warm">42d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">22</td>
       <td class="addr-cell"><strong>1267 Rhapsody Dr</strong><br><span class="city-sub">Windsor</span></td>
       <td class="tc price-cell">$965,990</td>
@@ -1018,10 +609,10 @@ footer {
       <td class="tc">3bd / 2ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">2026</td>
-      <td class="tc dom-old">431d </td>
+      <td class="tc dom-old">443d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">23</td>
       <td class="addr-cell"><strong>2715 Walkaloosa Way</strong><br><span class="city-sub">Fort Collins</span></td>
       <td class="tc price-cell">$975,000</td>
@@ -1030,10 +621,10 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">2017</td>
-      <td class="tc dom-old">172d </td>
+      <td class="tc dom-old">184d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">24</td>
       <td class="addr-cell"><strong>1385 Trilling Dr</strong><br><span class="city-sub">Windsor</span></td>
       <td class="tc price-cell">$984,990</td>
@@ -1042,10 +633,10 @@ footer {
       <td class="tc">3bd / 3ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">2026</td>
-      <td class="tc dom-old">431d </td>
+      <td class="tc dom-old">443d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-old" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">25</td>
       <td class="addr-cell"><strong>3228 N Shields St</strong><br><span class="city-sub">Fort Collins</span></td>
       <td class="tc price-cell">$985,000</td>
@@ -1054,22 +645,22 @@ footer {
       <td class="tc">3bd / 2ba</td>
       <td class="tc">1 Story/Ranch</td>
       <td class="tc">1967</td>
-      <td class="tc dom-old">76d </td>
+      <td class="tc dom-old">88d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-warm" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row row-bom" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">26</td>
-      <td class="addr-cell"><strong>722 Sophie St</strong><br><span class="city-sub">Berthoud</span></td>
-      <td class="tc price-cell">$999,000</td>
-      <td class="tc">1.02 ac</td>
-      <td class="tc">4,733 sf</td>
-      <td class="tc">3bd / 4ba</td>
-      <td class="tc">2 Story</td>
-      <td class="tc">1978</td>
-      <td class="tc dom-warm">31d </td>
+      <td class="addr-cell"><strong>2647 Cutter Dr</strong><span class="badge badge-bom">BOM</span><br><span class="city-sub">Severance</span></td>
+      <td class="tc price-cell">$995,000</td>
+      <td class="tc">1.50 ac</td>
+      <td class="tc">4,412 sf</td>
+      <td class="tc">4bd / 4ba</td>
+      <td class="tc">1 Story/Ranch</td>
+      <td class="tc">2021</td>
+      <td class="tc dom-old">93d </td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
-<tr class="listing-row row-new" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368','_blank')" title="Click to view full MLS listing">
+<tr class="listing-row" onclick="window.open('https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7','_blank')" title="Open full MLS report">
       <td class="tc">27</td>
       <td class="addr-cell"><strong>503 Eagle Crest Ct</strong><br><span class="city-sub">Loveland</span></td>
       <td class="tc price-cell">$999,000</td>
@@ -1078,7 +669,7 @@ footer {
       <td class="tc">3bd / 5ba</td>
       <td class="tc">2 Story</td>
       <td class="tc">1998</td>
-      <td class="tc dom-new">3d <span class="badge badge-new">NEW</span></td>
+      <td class="tc dom-new">15d <span class="badge badge-new">NEW</span></td>
       <td class="tc src-badge src-ires">IRES</td>
     </tr>
       </tbody>
@@ -1086,10 +677,10 @@ footer {
   </div>
   <div class="source-line">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    Click any row to open the full MLS detail page in a new tab. Orange border = listed within 30 days. Amber = 31&ndash;60 days. DOM = Days on Market. Source: IRES MLS &amp; REcolorado &mdash; data deemed reliable but not guaranteed.
+    Click any row to open the full MLS report. Purple border = price reduction. Amber border = back on market. Orange DOM = listed within 30 days. Source: IRES MLS &amp; REcolorado &mdash; data deemed reliable but not guaranteed.
   </div>
 
-  <!-- Quick-Note Widget -->
+  <!-- Quick-note widget -->
   <div class="qn-widget">
     <div class="qn-label">Thoughts on these results?</div>
     <div class="chips">
@@ -1106,33 +697,64 @@ footer {
     </div>
     <div class="qn-confirm" id="qnConfirm">
       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polyline points="20 6 9 17 4 12"/></svg>
-      Got it &mdash; I&rsquo;ll follow up shortly.
+      Got it &mdash; Zachary will follow up shortly.
     </div>
   </div>
 </div>
 
-<!-- ========================================================
-     WHAT CHANGED
-     ======================================================== -->
+<!-- WHAT CHANGED -->
 <div class="section" id="changed">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
     <h2>What Changed</h2>
   </div>
 
-  <div class="log-entry">
-    <div class="log-date">Aug 28, 2026 &mdash; Initial Report</div>
+  <!-- FOMO entry -->
+  <div class="log-entry log-fomo">
+    <div class="log-date">
+      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Sep 2, 2026 &mdash; Under Contract / FOMO Alert
+    </div>
     <div class="log-text">
-      <strong>27 active listings</strong> loaded across your full search area spanning Fort Collins, Loveland, Berthoud, Severance, Windsor, Evans, Bellvue, Pierce, Milliken, and Johnstown. Price range: $740,000&ndash;$999,000. Notable fresh entries: <strong>#27 &mdash; 503 Eagle Crest Ct, Loveland</strong> (3 DOM, just listed Aug 26), <strong>#2 &mdash; 1301 7th St, Pierce</strong> (10 DOM, listed Aug 19), and <strong>#4 &mdash; 9916 County Road 48 1/2, Milliken</strong> (10 DOM, listed Aug 19). This is your baseline &mdash; future updates will highlight additions, price changes, and status moves (Active &rarr; Under Contract &rarr; Sold).
+      <strong>9916 County Road 48&frac12;, Milliken &mdash; $765,000</strong> went under contract in just <strong>14 days on market</strong> (listed Aug 19, under contract Sep 2). This is exactly the speed that well-priced acreage moves at the low end of your search range. It was a 3bd/2ba, 2,859 sqft two-story on 0.75 acres. It&rsquo;s gone &mdash; but it&rsquo;s a clear data point: properties priced well under $800K with at least half an acre are not sitting. When the right one appears, the window to act is narrow.
     </div>
   </div>
 
-  <p style="font-size:13px;color:var(--muted);margin-top:8px;">Future updates will log new listings (green NEW badge), price reductions (purple REDUCED badge), and properties going Under Contract or Sold so you can see what the market is doing in real time.</p>
+  <!-- BOM entry -->
+  <div class="log-entry log-bom">
+    <div class="log-date">
+      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Aug 31, 2026 &mdash; Back on Market &mdash; 2647 Cutter Dr, Severance
+    </div>
+    <div class="log-text">
+      <strong>2647 Cutter Dr, Severance &mdash; $995,000</strong> is back on market and you&rsquo;re seeing it here for the first time. The full price history: listed at <strong>$1,050,000</strong> (Jun 5), reduced to <strong>$995,000</strong> (Jul 16, &minus;$55,000), went to Active/Backup status Aug 21 (a deal was in progress), then the backup fell through and it returned fully Active on <strong>Aug 31</strong>. Built 2021, 4bd/4ba, 4,412 sqft ranch on 1.5 acres in Saddler PUD. The seller has already moved &minus;$55K and had a deal that didn&rsquo;t close &mdash; that&rsquo;s a motivated seller worth a conversation.
+    </div>
+  </div>
+
+  <!-- Price reductions entry -->
+  <div class="log-entry log-reduced">
+    <div class="log-date">
+      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+      Sep 9, 2026 &mdash; Three Price Reductions
+    </div>
+    <div class="log-text">
+      Three sellers cut asking prices since the Aug 28 report:<br><br>
+      <strong>722 Sophie St, Berthoud (MLS #1065288)</strong> &mdash; $999,000 &rarr; <strong>$950,000</strong> (&minus;$49,000 / -4.9%). The largest reduction this cycle. 4bd/4ba, 4,733 sqft two-story on 1.02 acres. Now 43 DOM &mdash; seller is motivated and priced well into negotiation range.<br><br>
+      <strong>7330 Silvermoon Ln, Fort Collins (MLS #1057855)</strong> &mdash; $949,500 &rarr; <strong>$930,000</strong> (&minus;$19,500 / -2.1%). 5bd/4ba, 3,906 sqft in Greenstone PUD. Now 133 DOM &mdash; has been sitting since late April. A second reduction in the same cycle signals real flexibility.<br><br>
+      <strong>4829 E County Road 54, Fort Collins (MLS #1062792)</strong> &mdash; $750,000 &rarr; <strong>$739,000</strong> (&minus;$11,000 / -1.5%). 2.3 acres, 1917 farmhouse-style, 1,788 sqft. Now 77 DOM. The acreage story here is the value &mdash; 2.3 acres in Fort Collins proper at this price is rare.
+    </div>
+  </div>
+
+  <!-- Baseline entry (carried forward) -->
+  <div class="log-entry">
+    <div class="log-date">Aug 28, 2026 &mdash; Initial Report (27 listings)</div>
+    <div class="log-text">
+      Baseline report established. 27 active listings across Fort Collins, Loveland, Berthoud, Severance, Windsor, Evans, Bellvue, Pierce, Milliken, and Johnstown. Price range: $740,000&ndash;$999,000. Search criteria locked. Portal live at zacharyspringborn.github.io/Dominick/.
+    </div>
+  </div>
 </div>
 
-<!-- ========================================================
-     SEARCH CRITERIA
-     ======================================================== -->
+<!-- CRITERIA -->
 <div class="section" id="criteria">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
@@ -1150,68 +772,30 @@ footer {
     <div class="crit-card"><div class="crit-label">Hide Duplicates</div><div class="crit-value">Yes</div></div>
     <div class="crit-card"><div class="crit-label">Sort Order</div><div class="crit-value">Price Low to High</div></div>
     <div class="crit-card"><div class="crit-label">Search Shape</div><div class="crit-value">Map-based (1 custom shape)</div></div>
-    <div class="crit-card"><div class="crit-label">Results as of</div><div class="crit-value">August 28, 2026</div></div>
+    <div class="crit-card"><div class="crit-label">Results as of</div><div class="crit-value">September 9, 2026</div></div>
   </div>
-  <p style="font-size:12px;color:var(--muted);margin-top:14px;">Want to adjust any of these parameters &mdash; widen the geography, shift the price range, or add a different style? Just text me and I can refine the search same day.</p>
+  <p style="font-size:12px;color:var(--muted);margin-top:14px;">Want to adjust any parameters &mdash; shift the price ceiling, widen geography, or drop the garage requirement? Text Zachary and it&rsquo;s updated same day.</p>
 </div>
 
-<!-- ========================================================
-     MARKET SNAPSHOT
-     ======================================================== -->
+<!-- MARKET SNAPSHOT -->
 <div class="section" id="market">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     <h2>Market Snapshot &mdash; Fort Collins Area</h2>
   </div>
-
-  <!-- Single Family Stats -->
-  <p style="font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;">Single Family &mdash; July 2026</p>
+  <p style="font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;">Single Family &mdash; July 2026 (IRES MLS InfoSparks)</p>
   <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-label">Median Sales Price</div>
-      <div class="stat-val">$665,100</div>
-      <div class="stat-chg chg-neg">+5.8% vs. July 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Average Sales Price</div>
-      <div class="stat-val">$785,511</div>
-      <div class="stat-chg chg-neg">+8.7% vs. July 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Closed Sales</div>
-      <div class="stat-val">205</div>
-      <div class="stat-chg chg-neg">+10.8% vs. July 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Days on Market</div>
-      <div class="stat-val">65 days</div>
-      <div class="stat-chg chg-neu">0.0% vs. July 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Inventory of Homes</div>
-      <div class="stat-val">491</div>
-      <div class="stat-chg chg-pos">+8.1% vs. July 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Months Supply</div>
-      <div class="stat-val">3.1 mo</div>
-      <div class="stat-chg chg-pos">+10.7% vs. July 2025</div>
-    </div>
+    <div class="stat-card"><div class="stat-label">Median Sales Price</div><div class="stat-val">$665,100</div><div class="stat-chg chg-neg">+5.8% vs July 2025</div></div>
+    <div class="stat-card"><div class="stat-label">Average Sales Price</div><div class="stat-val">$785,511</div><div class="stat-chg chg-neg">+8.7% vs July 2025</div></div>
+    <div class="stat-card"><div class="stat-label">Closed Sales</div><div class="stat-val">205</div><div class="stat-chg chg-neg">+10.8% vs July 2025</div></div>
+    <div class="stat-card"><div class="stat-label">Days on Market</div><div class="stat-val">65 days</div><div class="stat-chg chg-neu">0.0% vs July 2025</div></div>
+    <div class="stat-card"><div class="stat-label">Inventory</div><div class="stat-val">491</div><div class="stat-chg chg-pos">+8.1% vs July 2025</div></div>
+    <div class="stat-card"><div class="stat-label">Months Supply</div><div class="stat-val">3.1 mo</div><div class="stat-chg chg-pos">+10.7% vs July 2025</div></div>
   </div>
-
-  <!-- Full Market Table -->
   <div class="mkt-table-wrap">
     <table class="mkt-table">
       <thead>
-        <tr>
-          <th>Key Metric</th>
-          <th>Jul 2025</th>
-          <th>Jul 2026</th>
-          <th>% Change</th>
-          <th>YTD 2025</th>
-          <th>YTD 2026</th>
-          <th>YTD % Chg</th>
-        </tr>
+        <tr><th>Key Metric</th><th>Jul 2025</th><th>Jul 2026</th><th>% Change</th><th>YTD 2025</th><th>YTD 2026</th><th>YTD % Chg</th></tr>
       </thead>
       <tbody>
         <tr class="seg-header"><td colspan="7">Single Family</td></tr>
@@ -1222,37 +806,28 @@ footer {
         <tr><td>Median Sales Price</td><td>$628,500</td><td>$665,100</td><td class="chg-neg">+5.8%</td><td>$620,000</td><td>$629,900</td><td class="chg-neg">+1.6%</td></tr>
         <tr><td>Avg Sales Price</td><td>$722,657</td><td>$785,511</td><td class="chg-neg">+8.7%</td><td>$713,740</td><td>$751,443</td><td class="chg-neg">+5.3%</td></tr>
         <tr><td>% of List Price Received</td><td>99.0%</td><td>99.0%</td><td class="chg-neu">0.0%</td><td>99.4%</td><td>99.3%</td><td class="chg-pos">-0.1%</td></tr>
-        <tr><td>Inventory</td><td>454</td><td>491</td><td class="chg-pos">+8.1%</td><td>&mdash;</td><td>&mdash;</td><td class="chg-neu">&mdash;</td></tr>
-        <tr><td>Months Supply</td><td>2.8</td><td>3.1</td><td class="chg-pos">+10.7%</td><td>&mdash;</td><td>&mdash;</td><td class="chg-neu">&mdash;</td></tr>
-
+        <tr><td>Inventory</td><td>454</td><td>491</td><td class="chg-pos">+8.1%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>Months Supply</td><td>2.8</td><td>3.1</td><td class="chg-pos">+10.7%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
         <tr class="seg-header"><td colspan="7">Townhouse / Condo</td></tr>
-        <tr><td>New Listings</td><td>118</td><td>110</td><td class="chg-pos">-6.8%</td><td>733</td><td>739</td><td class="chg-neg">+0.8%</td></tr>
-        <tr><td>Pending Sales</td><td>56</td><td>51</td><td class="chg-pos">-8.9%</td><td>435</td><td>442</td><td class="chg-neg">+1.6%</td></tr>
-        <tr><td>Closed Sales</td><td>69</td><td>72</td><td class="chg-neg">+4.3%</td><td>415</td><td>423</td><td class="chg-neg">+1.9%</td></tr>
-        <tr><td>Days on Market</td><td>78</td><td>80</td><td class="chg-pos">+2.6%</td><td>85</td><td>84</td><td class="chg-pos">-1.2%</td></tr>
         <tr><td>Median Sales Price</td><td>$365,000</td><td>$385,000</td><td class="chg-neg">+5.5%</td><td>$400,000</td><td>$389,990</td><td class="chg-pos">-2.5%</td></tr>
         <tr><td>Avg Sales Price</td><td>$376,856</td><td>$416,962</td><td class="chg-neg">+10.6%</td><td>$414,360</td><td>$400,445</td><td class="chg-pos">-3.4%</td></tr>
-        <tr><td>% of List Price Received</td><td>98.5%</td><td>98.3%</td><td class="chg-pos">-0.2%</td><td>98.8%</td><td>98.6%</td><td class="chg-pos">-0.2%</td></tr>
-        <tr><td>Inventory</td><td>271</td><td>269</td><td class="chg-pos">-0.7%</td><td>&mdash;</td><td>&mdash;</td><td class="chg-neu">&mdash;</td></tr>
-        <tr><td>Months Supply</td><td>5.0</td><td>4.7</td><td class="chg-pos">-6.0%</td><td>&mdash;</td><td>&mdash;</td><td class="chg-neu">&mdash;</td></tr>
+        <tr><td>Inventory</td><td>271</td><td>269</td><td class="chg-pos">-0.7%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>Months Supply</td><td>5.0</td><td>4.7</td><td class="chg-pos">-6.0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
       </tbody>
     </table>
   </div>
   <div class="source-line" style="margin-bottom:24px;">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    Source: IRES MLS Local Market Update &mdash; July 2026. Zip codes 80521, 80524, 80525, 80526, 80528. Current as of August 5, 2026. All data from IRES MLS&reg;. Report &copy; 2026 ShowingTime Plus, LLC. Green % = buyer-favorable. Red % = seller-favorable / price appreciation.
+    Source: IRES MLS InfoSparks Local Market Update &mdash; July 2026. Zip codes 80521, 80524, 80525, 80526, 80528. Current as of August 5, 2026. &copy; 2026 ShowingTime Plus, LLC.
   </div>
-
   <div class="market-prose">
-    <p>Fort Collins is operating in a modest seller&rsquo;s market that is gradually softening &mdash; a window that works in your favor as a buyer. The <strong>single-family median price reached $665,100 in July 2026</strong>, up 5.8% from a year ago, but the more meaningful signals are in supply: inventory has grown to <strong>491 homes (up 8.1%)</strong> and months of supply sits at <strong>3.1 months</strong> &mdash; the highest in several years for this market. Sellers are still receiving <strong>99% of their list price</strong>, which means well-priced homes are moving. But days on market held flat at 65, and with more inventory accumulating, negotiating leverage is slowly shifting.</p>
-    <p>For a buyer searching in the $500K&ndash;$1M range with acreage requirements, the key insight is this: <strong>more homes are coming on than going under contract</strong> month over month. That creates time &mdash; but not unlimited time. The listings in your current results with 90&ndash;130+ days on market are worth a close look, as sellers there may be ready to negotiate. Meanwhile, anything under 30 DOM in this price band is priced right and will move quickly.</p>
-    <p>Data sourced from IRES MLS InfoSparks Local Market Update for Fort Collins (zip codes 80521, 80524, 80525, 80526, 80528), current as of August 5, 2026.</p>
+    <p>The three price reductions this week are consistent with the broader market signal: <strong>inventory is up 8.1% year-over-year and months of supply has grown to 3.1</strong>. Sellers who priced aggressively in the spring are starting to blink. That creates real opportunity for a buyer who is ready to move &mdash; you can negotiate from a position that did not exist six months ago.</p>
+    <p>The 14-day sale of CR 48&frac12; in Milliken is a useful counterpoint: <strong>well-priced homes with acreage at the low end of this range are still getting absorbed quickly</strong>. The market is not broken &mdash; it is sorting itself. Overpriced inventory sits. Correctly priced inventory moves.</p>
+    <p>Cutter Dr&rsquo;s BOM status reflects the same dynamic from the seller&rsquo;s side: a deal fell apart, likely over price or inspection. A buyer who comes in clean with a strong pre-approval and reasonable asks has real leverage there.</p>
   </div>
 </div>
 
-<!-- ========================================================
-     AREA GUIDE
-     ======================================================== -->
+<!-- AREA GUIDE -->
 <div class="section" id="area">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1260,53 +835,33 @@ footer {
   </div>
   <div class="area-grid">
     <div class="area-card">
-      <div class="area-name">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Fort Collins
-      </div>
-      <div class="area-desc">Home to Colorado State University, a vibrant Old Town, craft brewery culture, and a nationally recognized trail system. Fort Collins offers a full-service urban core with quick access to Rocky Mountain National Park. Median SFR prices are pushing $665K, inventory is growing, and it remains one of the most desirable mid-size cities in the Mountain West. Trade-off: property taxes are higher, and half-acre lots at this price point are increasingly rare within city limits.</div>
+      <div class="area-name"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Fort Collins</div>
+      <div class="area-desc">Home to CSU, Old Town, and a nationally recognized trail system. Inventory is growing, median SFR price at $665K. Half-acre lots at your price range are increasingly rare within city limits, but 4829 E CR 54 (2.3 ac, $739K) and 622 Boulder Cir are exceptions worth a look.</div>
     </div>
     <div class="area-card">
-      <div class="area-name">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Loveland
-      </div>
-      <div class="area-desc">The &ldquo;Gateway to the Rockies,&rdquo; Loveland offers meaningful acreage at prices just south of Fort Collins, with strong arts infrastructure (Benson Sculpture Garden), easy I-25 access, and growing commercial corridors. Several of your results here include 1&ndash;5 acre parcels. The Eagle Crest neighborhood in particular has established custom homes at your price ceiling. Trade-off: fewer walkable amenities than Fort Collins; some areas sit in rural fire-response zones.</div>
+      <div class="area-name"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Loveland</div>
+      <div class="area-desc">Strong arts scene, I-25 access, and real acreage at prices just south of Fort Collins. Eagle Crest (503 Eagle Crest Ct) is an established custom-home neighborhood. 4801 Norwood Ave at 4.64 acres is the most acreage in this entire report for under $800K.</div>
     </div>
     <div class="area-card">
-      <div class="area-name">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Berthoud
-      </div>
-      <div class="area-desc">Berthoud is undergoing a quiet renaissance &mdash; small-town feel, historic Main Street, and proximity to both Loveland and I-25. The Forbes Ranch Estates and Berthoud Lake Ranchettes neighborhoods that appear in your results offer generous lots and custom builds. Equestrian properties and hobby farms are common here. Trade-off: Berthoud is between markets, so resale liquidity is slower than Fort Collins proper.</div>
+      <div class="area-name"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Berthoud</div>
+      <div class="area-desc">Small-town feel with equestrian properties and Forbes Ranch Estates custom builds. 722 Sophie St (now $950K after $49K cut) and 2809 Lake Hollow Rd are both worth a walk-through. Trade-off: slower resale liquidity than Fort Collins.</div>
     </div>
     <div class="area-card">
-      <div class="area-name">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Severance &amp; Windsor
-      </div>
-      <div class="area-desc">Fast-growing bedroom communities northeast of Fort Collins with newer construction and larger lots. Windsor is polished and established; Severance is younger and more rural in feel with strong school districts. The Prairie Song development (listings #22 and #24 in your results) offers new construction at $965K&ndash;$985K. Trade-off: longer commute to Fort Collins or Loveland; fewer established amenities.</div>
+      <div class="area-name"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Severance &amp; Windsor</div>
+      <div class="area-desc">Growing northeast corridors with newer builds. Cutter Dr (BOM, 2021 construction, 4,412 sqft) is the strongest value story in Severance right now. Prairie Song new construction (Windsor) offers 1 story/ranch layouts on just over an acre at the top of your budget.</div>
     </div>
     <div class="area-card">
-      <div class="area-name">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Bellvue
-      </div>
-      <div class="area-desc">Tucked in the Poudre Canyon corridor west of Fort Collins, Bellvue properties like listing #10 (11+ acres) offer dramatic topography, privacy, and direct mountain access. This is true rural Colorado &mdash; recreational lifestyle, dark skies, and acreage that wouldn&rsquo;t be available elsewhere at this price. Trade-off: limited cell coverage in some areas, longer response times for emergency services, and some road access challenges in winter.</div>
+      <div class="area-name"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Bellvue</div>
+      <div class="area-desc">801 Hernia Hill Trl: 11+ acres, 2013 build, $840K. True rural Colorado &mdash; Poudre Canyon corridor, privacy, dark skies, direct mountain access. Trade-off: limited cell coverage in some areas, winter road access, longer emergency response times.</div>
     </div>
     <div class="area-card">
-      <div class="area-name">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Evans, Pierce &amp; Milliken
-      </div>
-      <div class="area-desc">These outer-corridor communities represent the largest bang for your dollar per square foot in this search. Evans (#20) and Pierce (#2) deliver substantial sq footage and acreage at the low end of your price range. Trade-off: Evans is a Greeley suburb with more modest surrounding development; Pierce and Milliken are small agricultural communities with limited infrastructure. Worth considering if acreage is your top priority.</div>
+      <div class="area-name"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Evans, Pierce &amp; Johnstown</div>
+      <div class="area-desc">Largest sq footage per dollar in this search. Evans, Pierce, and Johnstown deliver square footage and acreage at the low end of your range. Best suited if raw space and land are your top priorities over proximity to Fort Collins services.</div>
     </div>
   </div>
 </div>
 
-<!-- ========================================================
-     FULL FEEDBACK WIDGET
-     ======================================================== -->
+<!-- FEEDBACK -->
 <div class="section" id="feedback">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -1318,24 +873,22 @@ footer {
       <span class="chip" onclick="fbChip(this)">Too far from Fort Collins</span>
       <span class="chip" onclick="fbChip(this)">Need more acreage</span>
       <span class="chip" onclick="fbChip(this)">Widen price range</span>
-      <span class="chip" onclick="fbChip(this)">Add Johnstown / Milliken</span>
+      <span class="chip" onclick="fbChip(this)">Interested in Cutter Dr</span>
       <span class="chip" onclick="fbChip(this)">Keep me posted on new listings</span>
     </div>
-    <textarea class="fb-textarea" id="fbText" placeholder="What&rsquo;s on your mind? Any properties stand out, or should I adjust the search?" oninput="fbAutosave()"></textarea>
+    <textarea class="fb-textarea" id="fbText" placeholder="What&rsquo;s on your mind? Any of the price reductions or the BOM catch your eye?" oninput="fbAutosave()"></textarea>
     <div class="fb-footer">
       <div class="fb-autosave" id="fbSaveStatus">Draft auto-saves as you type</div>
       <button class="fb-send" onclick="sendFB()">Send Feedback</button>
     </div>
     <div class="fb-confirm" id="fbConfirm">
       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polyline points="20 6 9 17 4 12"/></svg>
-      Received &mdash; I&rsquo;ll be in touch.
+      Received &mdash; Zachary will be in touch.
     </div>
   </div>
 </div>
 
-<!-- ========================================================
-     AGENT CONTACT CARD
-     ======================================================== -->
+<!-- CONTACT -->
 <div class="section" id="contact">
   <div class="section-header">
     <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.97 3.38 2 2 0 0 1 3.96 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91A16 16 0 0 0 15 15.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22.72 17z"/></svg>
@@ -1361,140 +914,68 @@ footer {
         </a>
       </div>
       <div class="agent-bio">
-        <strong>Dominick</strong>, this portal is your permanent home base for this search. Every time I run your report &mdash; weekly or whenever the market moves &mdash; I&rsquo;ll update this page so you&rsquo;re always seeing the current picture in one place, not scattered email links. When something catches your eye, just text me and we&rsquo;ll get you in the door. I work directly with IRES MLS and REcolorado data, so you&rsquo;re getting the same feed every agent in Northern Colorado uses &mdash; no third-party filters, no delayed syndication.
+        <strong>Dominick</strong>, this is your permanent portal &mdash; one URL, updated every time the market moves. The Cutter Dr BOM and the three price cuts this week are good reasons to get together and walk through what fits your priorities. Text me and we&rsquo;ll set something up &mdash; I can get us into any of these same day.
       </div>
     </div>
   </div>
 </div>
 
-<!-- ========================================================
-     DISCLAIMER (fully expanded)
-     ======================================================== -->
+<!-- DISCLAIMER -->
 <div class="disclaimer-block">
   <p><strong>Prepared exclusively for Dominick by Zachary Springborn, Licensed Real Estate Broker &middot; JPAR&reg; Modern Real Estate &middot; 970-889-4925 &middot; zacharyspringborn@jpar.net. Confidential &mdash; for the named recipient only. This portal is provided as a private resource for an identified buyer client and is not intended as a public advertisement or solicitation. Unauthorized distribution, reproduction, or commercial use of this content is prohibited.</strong></p>
-
-  <p><strong>Data Reliability &amp; Accuracy.</strong> Property data compiled August 28, 2026, from IRES MLS and REcolorado (collectively, the &ldquo;Northern Colorado MLS&rdquo;). Information is deemed reliable but is not guaranteed and is subject to verification, errors, omissions, prior sale, or withdrawal without notice. All property details &mdash; including square footage, bedroom and bathroom counts, acreage, lot dimensions, year built, garage spaces, subdivision, zoning classification, and days on market &mdash; are as reported by listing agents and have not been independently verified by Zachary Springborn or JPAR&reg; Modern Real Estate. Buyers are encouraged to independently verify all material facts through their own due diligence, including but not limited to physical inspection, survey, and review of public records.</p>
-
+  <p><strong>Data Reliability &amp; Accuracy.</strong> Property data compiled September 9, 2026, from IRES MLS and REcolorado. Information is deemed reliable but is not guaranteed and is subject to verification, errors, omissions, prior sale, or withdrawal without notice. All property details &mdash; including square footage, bedroom and bathroom counts, acreage, lot dimensions, year built, garage spaces, subdivision, zoning classification, and days on market &mdash; are as reported by listing agents and have not been independently verified. Buyers are encouraged to independently verify all material facts.</p>
   <p><strong>IRES MLS Attribution.</strong> The content relating to real estate for sale in this portal comes in part from the Internet Data eXchange (IDX) program of Information and Real Estate Services, LLC (IRES MLS). Real estate listings held by brokers other than JPAR&reg; Modern Real Estate are marked with the IDX designation. This information is being provided for the consumer&rsquo;s personal, non-commercial use and may not be used for any other purpose. All information is subject to change and should be independently verified. &copy; 2026 Information and Real Estate Services, LLC. All rights reserved.</p>
-
   <p><strong>REcolorado / METROLIST IDX Attribution.</strong> The content relating to real estate for sale in this portal comes in part from the Internet Data eXchange (IDX) program of METROLIST, INC., DBA RECOLORADO&copy;. Real estate listings held by brokers other than JPAR&reg; Modern Real Estate are marked with the IDX Logo. This information is being provided for the consumer&rsquo;s personal, non-commercial use and may not be used for any other purpose. All information is subject to change and should be independently verified.</p>
-
   <p><strong>elevateMLS.</strong> The real estate listing information and related content displayed on this site is provided exclusively for consumers&rsquo; personal, non-commercial use and may not be used for any purpose other than to identify prospective properties consumers may be interested in purchasing. This information and related content is deemed reliable but is not guaranteed accurate by elevateMLS.</p>
-
-  <p><strong>Not Legal, Tax, or Financial Advice.</strong> This portal is informational only and does not constitute legal, tax, financial, appraisal, surveying, engineering, environmental, or investment advice. Buyers should consult the appropriate licensed professionals &mdash; including a real estate attorney, CPA, licensed appraiser, and certified inspector &mdash; before entering into any purchase contract or closing on any property.</p>
-
-  <p><strong>Agency Disclosure.</strong> Zachary Springborn, CREC #100103789, is a Licensed Real Estate Broker with JPAR&reg; Modern Real Estate operating in the State of Colorado. In any contemplated transaction arising from listings displayed in this portal, Zachary Springborn represents the buyer. Listing agents represent the seller. Colorado law requires that buyers and sellers understand agency relationships; a copy of the Colorado Definitions of Working Relationships form is available upon request.</p>
-
-  <p><strong>Market Data.</strong> Market statistics referenced in this portal are sourced from the IRES MLS Local Market Update (InfoSparks) for Fort Collins, zip codes 80521, 80524, 80525, 80526, and 80528, current as of August 5, 2026. Report &copy; 2026 ShowingTime Plus, LLC. Data reflects the Fort Collins zip code cluster and may not precisely represent conditions in Loveland, Berthoud, Severance, Windsor, Evans, Pierce, Milliken, Bellvue, or Johnstown, all of which are included in the search results above. Local market conditions may vary significantly by neighborhood, price band, and property type.</p>
-
-  <p><strong>Map-Based Search Boundary.</strong> Listings in this report were generated using a custom map-drawn search shape in IRES MLS. The geographic boundary is approximate. Properties that appear within the search results may be located in different municipalities, counties, or school districts than expected. Buyers should verify jurisdiction, school district assignment, utility providers, and road maintenance responsibility for any specific property of interest.</p>
-
-  <p><strong>Third-Party Links.</strong> This portal contains links to IRES MLS (iresis.com) listing detail pages. These third-party pages are operated by IRES MLS and are subject to their own terms of service, privacy policy, and data accuracy standards. Zachary Springborn and JPAR&reg; Modern Real Estate are not responsible for the content, accuracy, or availability of third-party websites.</p>
-
+  <p><strong>Not Legal, Tax, or Financial Advice.</strong> This portal is informational only and does not constitute legal, tax, financial, appraisal, surveying, engineering, environmental, or investment advice. Buyers should consult the appropriate licensed professionals before entering into any purchase contract.</p>
+  <p><strong>Agency Disclosure.</strong> Zachary Springborn, CREC #100103789, is a Licensed Real Estate Broker with JPAR&reg; Modern Real Estate operating in the State of Colorado. In any contemplated transaction arising from listings displayed in this portal, Zachary Springborn represents the buyer.</p>
+  <p><strong>Market Data.</strong> Market statistics are sourced from the IRES MLS InfoSparks Local Market Update for Fort Collins (zip codes 80521, 80524, 80525, 80526, 80528), current as of August 5, 2026. &copy; 2026 ShowingTime Plus, LLC. Data reflects the Fort Collins zip code cluster and may not precisely represent conditions in all communities shown in search results. Local market conditions vary significantly by neighborhood, price band, and property type.</p>
+  <p><strong>Map-Based Search Boundary.</strong> Listings were generated using a custom map-drawn search shape in IRES MLS. The geographic boundary is approximate. Buyers should verify jurisdiction, school district, utility providers, and road maintenance responsibility for any property of interest.</p>
+  <p><strong>Third-Party Links.</strong> This portal contains links to IRES MLS (iresis.com) listing pages. These are operated by IRES MLS and subject to their own terms and privacy policy. Zachary Springborn and JPAR&reg; Modern Real Estate are not responsible for third-party content, accuracy, or availability.</p>
   <p><strong>JPAR Franchise Disclosure.</strong> JPAR&reg; Modern Real Estate is a franchisee of JPAR Franchising LLC. Each office is independently owned and operated. JPAR Franchising LLC is an Equal Opportunity Employer and supports the Fair Housing Act.</p>
-
-  <p><strong>Equal Housing Opportunity.</strong> All real estate advertised herein is subject to the Federal Fair Housing Act, which makes it illegal to advertise any preference, limitation, or discrimination based on race, color, religion, sex, handicap, familial status, or national origin, or intention to make any such preference, limitation, or discrimination. We will not knowingly accept any advertising for real estate that violates the law. All persons are hereby informed that all dwellings advertised are available on an equal opportunity basis.</p>
-
-  <p style="font-size:10.5px;">Page last updated: August 28, 2026. Portal URL: zacharyspringborn.github.io/Dominick/</p>
+  <p><strong>Equal Housing Opportunity.</strong> All real estate advertised herein is subject to the Federal Fair Housing Act. All persons are informed that all dwellings advertised are available on an equal opportunity basis.</p>
+  <p style="font-size:10.5px;">Page updated: September 9, 2026. Portal URL: zacharyspringborn.github.io/Dominick/</p>
 </div>
 
-<!-- ========================================================
-     FOOTER
-     ======================================================== -->
 <footer>
   Zachary Springborn &middot; Licensed Real Estate Broker &middot; JPAR&reg; Modern Real Estate &middot; CREC #100103789 &middot; 970-889-4925<br>
   &copy; 2026 &middot; Each office independently owned and operated &middot; Equal Housing Opportunity &middot; Data: IRES MLS &amp; REcolorado
 </footer>
+</div>
 
-</div><!-- /page-body -->
-
-<!-- ========================================================
-     JAVASCRIPT
-     ======================================================== -->
 <script>
-// ---------- Quick-note widget ----------
-function qnChip(el) {
-  const inp = document.getElementById('qnInput');
-  inp.value = el.textContent;
-  inp.focus();
+function qnChip(el){document.getElementById('qnInput').value=el.textContent;document.getElementById('qnInput').focus();}
+async function sendQN(){
+  const msg=document.getElementById('qnInput').value.trim();
+  if(!msg)return;
+  try{
+    const r=await fetch('https://formspree.io/f/xyegpeva',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,client:'Dominick',_subject:'[Quick note] Dominick — Property Search Portal',portal_url:window.location.href,search_url:'https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7'})  });
+    if(r.ok){document.getElementById('qnInput').value='';const c=document.getElementById('qnConfirm');c.style.display='block';setTimeout(()=>c.style.display='none',5000);}
+    else fallbackSMS(msg);
+  }catch(e){fallbackSMS(msg);}
 }
+function fallbackSMS(msg){window.location.href='sms:+19708894925&body='+encodeURIComponent('[From portal] '+msg);}
 
-async function sendQN() {
-  const msg = document.getElementById('qnInput').value.trim();
-  if (!msg) return;
-  try {
-    const resp = await fetch('https://formspree.io/f/xyegpeva', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: msg,
-        client: 'Dominick',
-        _subject: '[Quick note] Dominick — Property Search Portal',
-        portal_url: window.location.href,
-        search_url: 'https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368'
-      })
-    });
-    if (resp.ok) {
-      document.getElementById('qnInput').value = '';
-      const c = document.getElementById('qnConfirm');
-      c.style.display = 'block';
-      setTimeout(() => c.style.display = 'none', 5000);
-    } else { fallbackSMS(msg); }
-  } catch(e) { fallbackSMS(msg); }
-}
-
-function fallbackSMS(msg) {
-  window.location.href = 'sms:+19708894925&body=' + encodeURIComponent('[From portal] ' + msg);
-}
-
-// ---------- Full feedback widget ----------
-let fbTimer = null;
-function fbChip(el) {
-  const ta = document.getElementById('fbText');
-  ta.value = (ta.value ? ta.value + ' ' : '') + el.textContent;
-  ta.focus();
-}
-
-function fbAutosave() {
+let fbTimer=null;
+function fbChip(el){const ta=document.getElementById('fbText');ta.value=(ta.value?ta.value+' ':'')+el.textContent;ta.focus();}
+function fbAutosave(){
   clearTimeout(fbTimer);
-  fbTimer = setTimeout(() => {
-    localStorage.setItem('dominick_fb_draft', document.getElementById('fbText').value);
-    document.getElementById('fbSaveStatus').textContent = 'Draft saved';
-    setTimeout(() => document.getElementById('fbSaveStatus').textContent = 'Draft auto-saves as you type', 2000);
-  }, 1500);
+  fbTimer=setTimeout(()=>{
+    localStorage.setItem('dominick_fb_draft',document.getElementById('fbText').value);
+    document.getElementById('fbSaveStatus').textContent='Draft saved';
+    setTimeout(()=>document.getElementById('fbSaveStatus').textContent='Draft auto-saves as you type',2000);
+  },1500);
 }
-
-// Restore draft on load
-window.addEventListener('DOMContentLoaded', () => {
-  const draft = localStorage.getItem('dominick_fb_draft');
-  if (draft) document.getElementById('fbText').value = draft;
-});
-
-async function sendFB() {
-  const msg = document.getElementById('fbText').value.trim();
-  if (!msg) return;
-  try {
-    const resp = await fetch('https://formspree.io/f/xyegpeva', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: msg,
-        client: 'Dominick',
-        _subject: 'Feedback from Dominick — Property Search Portal',
-        portal_url: window.location.href,
-        search_url: 'https://www.iresis.com/cwa/link/listings?llid=qyw83dzh368'
-      })
-    });
-    if (resp.ok) {
-      localStorage.removeItem('dominick_fb_draft');
-      const c = document.getElementById('fbConfirm');
-      c.style.display = 'block';
-      document.getElementById('fbText').value = '';
-      document.getElementById('fbSaveStatus').textContent = 'Draft auto-saves as you type';
-    } else { window.location.href = 'sms:+19708894925&body=' + encodeURIComponent('[Feedback] ' + msg); }
-  } catch(e) { window.location.href = 'sms:+19708894925&body=' + encodeURIComponent('[Feedback] ' + msg); }
+window.addEventListener('DOMContentLoaded',()=>{const d=localStorage.getItem('dominick_fb_draft');if(d)document.getElementById('fbText').value=d;});
+async function sendFB(){
+  const msg=document.getElementById('fbText').value.trim();
+  if(!msg)return;
+  try{
+    const r=await fetch('https://formspree.io/f/xyegpeva',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,client:'Dominick',_subject:'Feedback from Dominick — Property Search Portal',portal_url:window.location.href,search_url:'https://www.iresis.com/cwa/link/listings?llid=thtztw4clh7'})  });
+    if(r.ok){localStorage.removeItem('dominick_fb_draft');document.getElementById('fbConfirm').style.display='block';document.getElementById('fbText').value='';document.getElementById('fbSaveStatus').textContent='Draft auto-saves as you type';}
+    else{window.location.href='sms:+19708894925&body='+encodeURIComponent('[Feedback] '+msg);}
+  }catch(e){window.location.href='sms:+19708894925&body='+encodeURIComponent('[Feedback] '+msg);}
 }
 </script>
-
 </body>
 </html>
